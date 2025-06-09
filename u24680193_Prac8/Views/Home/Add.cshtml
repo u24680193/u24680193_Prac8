@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Add new Shape";
+}
+
+<h2>Add Shape</h2>
+
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="shapeType">Choose shape</label>
+        <select class="form-control" id="shapeType" name="type">
+            <option value="1">Triangle</option>
+            <option value="2">Ellipse</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="desc">Description</label>
+        <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="fill">Fill</label>
+        <select class="form-control" name="fill" id="fill">
+            <option value="#ff0000">Red</option>
+            <option value="#ff8000">Orange</option>
+            <option value="#ffff00">Yellow</option>
+            <option value="#40ff00">Green</option>
+            <option value="#00ffff">Light Blue</option>
+            <option value="#0000ff">Dark Blue</option>
+            <option value="#8000ff">Purple</option>
+            <option value="#ff00ff">Pink</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="outline">Stroke Colour</label>
+        <select class="form-control" id="outline" name="outline">
+            <option value="#ff0000">Red</option>
+            <option value="#ff8000">Orange</option>
+            <option value="#ffff00">Yellow</option>
+            <option value="#40ff00">Green</option>
+            <option value="#00ffff">Light Blue</option>
+            <option value="#0000ff">Dark Blue</option>
+            <option value="#8000ff">Purple</option>
+            <option value="#ff00ff">Pink</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="stroke">Stroke Width</label>
+        <input type="number" min="0" max="3" class="form-control" name="stroke" id="stroke">
+    </div>
+
+    <div class="form-group">
+        <label for="xCoord">X Coordinate</label>
+        <input type="number" min="0" max="449" class="form-control" name="xCoord" id="xCoord">
+    </div>
+
+    <div class="form-group">
+        <label for="yCoord">Y Coordinate</label>
+        <input type="number" min="0" max="399" class="form-control" name="yCoord" id="yCoord">
+    </div>
+
+    <!-- Triangle-specific fields -->
+    <div class="form-group triangle-input">
+        <label for="width">Base</label>
+        <input type="number" min="1" max="449" class="form-control" name="width" id="width">
+    </div>
+    <div class="form-group triangle-input">
+        <label for="height">Height</label>
+        <input type="number" min="1" max="399" class="form-control" name="height" id="height">
+    </div>
+
+    <!-- Ellipse-specific fields -->
+    <div class="form-group ellipse-input" style="display:none">
+        <label for="width">Radius X</label>
+        <input type="number" min="1" max="225" class="form-control" name="width" id="radiusX">
+    </div>
+    <div class="form-group ellipse-input" style="display:none">
+        <label for="height">Radius Y</label>
+        <input type="number" min="1" max="225" class="form-control" name="height" id="radiusY">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        document.getElementById("shapeType").addEventListener("change", function () {
+            let type = this.value;
+
+            document.querySelectorAll(".triangle-input").forEach(e => e.style.display = "none");
+            document.querySelectorAll(".ellipse-input").forEach(e => e.style.display = "none");
+
+            if (type === "1") {
+                document.querySelectorAll(".triangle-input").forEach(e => e.style.display = "block");
+            } else if (type === "2") {
+                document.querySelectorAll(".ellipse-input").forEach(e => e.style.display = "block");
+            }
+        });
+
+        // Trigger change on page load to apply correct visibility
+        document.getElementById("shapeType").dispatchEvent(new Event("change"));
+    </script>
+}
+

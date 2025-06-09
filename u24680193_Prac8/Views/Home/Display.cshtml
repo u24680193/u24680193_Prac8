@@ -1,0 +1,19 @@
+﻿@model List<u24680193_Prac8.Models.Shape>
+
+<h2>SVG Display</h2>
+
+<svg width="450" height="450" style="border:1px solid #333">
+    @foreach (var shape in Model)
+    {
+        @Html.Raw(shape.getSVG())
+    }
+</svg>
+
+<ul>
+    @foreach (var shape in Model)
+    {
+        <li>@shape.Description — Area: @shape.getArea().ToString("0.00")</li>
+    }
+</ul>
+
+<a href="@Url.Action("Add", "Home")" class="btn btn-primary">Add Another Shape</a>
